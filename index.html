@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Fight Arena</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-container">
+
+        <header class="game-header">
+            <div>
+                <span class="eyebrow">BATALHA DOS MAGOS</span>
+                <h1>ANIME <span>FIGHT</span></h1>
+            </div>
+
+            <button id="restartButton" class="restart-button">
+                ESCOLHER PERSONAGEM
+            </button>
+        </header>
+
+        <section class="battle-hud">
+            <div class="fighter-info">
+                <div class="fighter-name">
+                    <span>01</span>
+                    <strong id="playerName">ASTA</strong>
+                </div>
+
+                <div class="health-track">
+                    <div id="playerHealth" class="health-fill player-health"></div>
+                </div>
+
+                <div class="energy-track">
+                    <div id="playerEnergy" class="energy-fill"></div>
+                </div>
+
+                <small>VIDA <span id="playerHealthText">100</span> · ENERGIA</small>
+            </div>
+
+            <div class="timer">
+                <span id="timer">99</span>
+                <small>TEMPO</small>
+            </div>
+
+            <div class="fighter-info enemy-info">
+                <div class="fighter-name">
+                    <strong id="enemyName">YUNO</strong>
+                    <span>02</span>
+                </div>
+
+                <div class="health-track">
+                    <div id="enemyHealth" class="health-fill enemy-health"></div>
+                </div>
+
+                <div class="energy-track">
+                    <div id="enemyEnergy" class="energy-fill enemy-energy"></div>
+                </div>
+
+                <small>VIDA <span id="enemyHealthText">100</span> · ENERGIA</small>
+            </div>
+        </section>
+
+        <section class="arena">
+            <canvas id="gameCanvas" width="960" height="540">
+                Seu navegador não suporta Canvas.
+            </canvas>
+
+            <div id="overlay" class="overlay">
+                <section id="selectionScreen" class="overlay-card selection-panel">
+                    <span class="eyebrow">BATALHA DOS MAGOS</span>
+                    <h2>ESCOLHA SEU LUTADOR</h2>
+
+                    <div class="character-grid" role="group" aria-label="Selecionar personagem">
+                        <button class="character-option is-selected" type="button" data-character="ASTA" aria-pressed="true" style="--character-accent: #ff4964">
+                            <span class="character-art asta-art"><img src="assets/asta/pose-0.png" alt=""></span>
+                            <span class="character-copy"><strong>ASTA</strong><small>Anti-magia</small></span>
+                        </button>
+                        <button class="character-option" type="button" data-character="YUNO" aria-pressed="false" style="--character-accent: #59caff">
+                            <span class="character-art yuno-art"><img src="assets/yuno/yuno.png" alt=""></span>
+                            <span class="character-copy"><strong>YUNO</strong><small>Magia do vento</small></span>
+                        </button>
+                        <button class="character-option" type="button" data-character="YAMI" aria-pressed="false" style="--character-accent: #c9a56a">
+                            <span class="character-art yami-art"><img src="Ficha%20de%20Personagem%20Yami%20Sukehiro.png" alt=""></span>
+                            <span class="character-copy"><strong>YAMI</strong><small>Magia negra</small></span>
+                        </button>
+                        <button class="character-option" type="button" data-character="NOELLE" aria-pressed="false" style="--character-accent: #a6e9ff">
+                            <span class="character-art noelle-art" aria-hidden="true"><span>N</span></span>
+                            <span class="character-copy"><strong>NOELLE</strong><small>Magia de água</small></span>
+                        </button>
+                    </div>
+
+                    <p class="matchup-line">LUTADOR <span id="matchupText">ASTA VS. YUNO</span></p>
+                    <button id="startButton">INICIAR BATALHA</button>
+                </section>
+
+                <section id="resultScreen" class="overlay-card result-panel" hidden>
+                    <span class="eyebrow">FIM DE COMBATE</span>
+                    <h2 id="resultTitle">VITÓRIA</h2>
+                    <p id="resultMessage">Clique para escolher novamente.</p>
+                    <button id="chooseAgainButton">ESCOLHER PERSONAGEM</button>
+                </section>
+            </div>
+
+            <div class="combo-display" id="comboDisplay"></div>
+        </section>
+
+        <section class="controls">
+            <div>
+                <h3>MOVIMENTAÇÃO</h3>
+                <p><kbd>A</kbd> <kbd>D</kbd> Mover</p>
+                <p><kbd>W</kbd> Pular</p>
+                <p><kbd>S</kbd> Defender</p>
+            </div>
+
+            <div>
+                <h3>COMBATE</h3>
+                <p><kbd>J</kbd> Ataque básico</p>
+                <p><kbd>K</kbd> Golpe forte</p>
+                <p><kbd>L</kbd> Poder especial</p>
+            </div>
+
+            <div>
+                <h3>PODER DO LUTADOR</h3>
+                <p><kbd>L</kbd> Poder especial</p>
+                <p id="abilityControlOne"><kbd id="abilityKeyOne">U</kbd> <span id="abilityNameOne">Onda cortante</span></p>
+                <p id="abilityControlTwo"><kbd id="abilityKeyTwo">I</kbd> <span id="abilityNameTwo">Meteoro negro</span></p>
+            </div>
+
+            <div>
+                <h3>OBJETIVO</h3>
+                <p>Derrote o adversário!</p>
+                <p>Combine ataques para criar combos.</p>
+                <p>Use energia para liberar poderes.</p>
+            </div>
+        </section>
+
+        <footer>
+            ANIME FIGHT ARENA <span>•</span> PROTÓTIPO 2D
+        </footer>
+    </main>
+
+    <script src="game.js"></script>
+</body>
+</html>

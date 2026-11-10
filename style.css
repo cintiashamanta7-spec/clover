@@ -1,0 +1,577 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;600;700&display=swap');
+
+:root {
+    --background: #080b16;
+    --panel: #11172a;
+    --red: #ff294b;
+    --blue: #38a5ff;
+    --white: #f4f6ff;
+    --muted: #929bb9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(89, 119, 255, 0.16), transparent 28%),
+        radial-gradient(circle at 80% 5%, rgba(255, 41, 75, 0.10), transparent 24%),
+        linear-gradient(180deg, #111833 0%, var(--background) 72%);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    padding: 24px;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+.game-container {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.28));
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.game-header::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    order: 2;
+    margin-left: 10px;
+    background: linear-gradient(90deg, rgba(92, 116, 178, 0.8), transparent);
+}
+
+.eyebrow {
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(24px, 4vw, 38px);
+    margin: 5px 0;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+h1 span {
+    color: var(--red);
+}
+
+.restart-button {
+    position: relative;
+    z-index: 1;
+    padding: 12px 16px;
+    border: 1px solid #36415e;
+    background: linear-gradient(180deg, #1a2543, #101629);
+    color: var(--white);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.06), 0 8px 20px rgba(0, 0, 0, 0.25);
+    transition: 0.2s;
+}
+
+.restart-button:hover {
+    border-color: var(--red);
+    background: linear-gradient(180deg, #402039, #291425);
+    box-shadow: 0 0 18px rgba(255, 41, 75, 0.18);
+}
+
+.battle-hud {
+    display: grid;
+    grid-template-columns: 1fr 85px 1fr;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+    background:
+        linear-gradient(90deg, rgba(255, 41, 75, 0.035), transparent 45%, rgba(56, 165, 255, 0.035)),
+        rgba(13, 19, 37, 0.96);
+    border: 1px solid #283552;
+    border-bottom: 3px solid #35476d;
+    box-shadow: inset 0 1px rgba(255,255,255,0.035), 0 12px 30px rgba(0,0,0,0.22);
+}
+
+.fighter-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 9px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.fighter-name strong {
+    font-size: 17px;
+}
+
+.fighter-name span {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.health-track {
+    position: relative;
+    height: 15px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #2c3248, #20253a);
+    border: 1px solid #46516d;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.health-fill {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: width 0.15s;
+}
+
+.health-fill::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, transparent 0 28px, rgba(5, 8, 20, 0.25) 29px 31px);
+}
+
+.player-health {
+    background: linear-gradient(90deg, #7d0925, #ff294b 65%, #ff6d85);
+    box-shadow: 0 0 12px rgba(255, 41, 75, 0.45);
+}
+
+.enemy-health {
+    background: linear-gradient(90deg, #ffd45a, #ff633c);
+    margin-left: auto;
+    box-shadow: 0 0 12px rgba(255, 181, 46, 0.35);
+}
+
+.energy-track {
+    height: 5px;
+    margin-top: 6px;
+    border: 0;
+}
+
+.energy-fill {
+    background: linear-gradient(90deg, #a42dff, #47b9ff);
+}
+
+.enemy-energy {
+    background: linear-gradient(90deg, #36d9ff, #4f79ff);
+}
+
+.fighter-info small {
+    display: block;
+    margin-top: 7px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--muted);
+}
+
+.enemy-info {
+    text-align: right;
+}
+
+.enemy-info .fighter-name {
+    flex-direction: row;
+}
+
+.timer {
+    text-align: center;
+    border: 2px solid #526181;
+    background: #090e1d;
+    padding: 8px 5px;
+    clip-path: polygon(18% 0, 82% 0, 100% 25%, 100% 75%, 82% 100%, 18% 100%, 0 75%, 0 25%);
+}
+
+.timer span {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.timer small {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--muted);
+}
+
+.arena {
+    position: relative;
+    overflow: hidden;
+    margin-top: 14px;
+    border: 2px solid #5268a2;
+    background: #111a35;
+    box-shadow:
+        0 0 0 1px rgba(4, 6, 16, 0.9),
+        0 0 35px rgba(55, 91, 180, 0.18),
+        0 22px 55px rgba(0, 0, 0, 0.55);
+}
+
+#gameCanvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: auto;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+    background: rgba(4, 7, 17, 0.65);
+    backdrop-filter: blur(3px);
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+.overlay-card {
+    width: min(420px, 100%);
+    text-align: center;
+    padding: 30px 20px;
+    border: 1px solid #56658b;
+    background:
+        linear-gradient(145deg, rgba(37, 48, 87, 0.98), rgba(9, 13, 26, 0.98));
+    box-shadow: 0 0 40px rgba(0,0,0,0.9), inset 0 0 35px rgba(73, 103, 190, 0.08);
+}
+
+.overlay-card h2 {
+    margin: 12px 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(22px, 4vw, 34px);
+}
+
+.overlay-card p {
+    color: var(--muted);
+    font-size: 18px;
+}
+
+.overlay-card button {
+    padding: 14px 24px;
+    margin-top: 10px;
+    border: 0;
+    background: var(--red);
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.overlay-card button:hover {
+    background: #ff5670;
+    transform: scale(1.04);
+}
+
+.selection-panel {
+    width: min(860px, 100%);
+    padding: 24px;
+}
+
+.selection-panel h2 {
+    margin: 8px 0 16px;
+    font-size: clamp(20px, 3vw, 30px);
+}
+
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.character-option {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 !important;
+    padding: 8px !important;
+    border: 1px solid #3a4765 !important;
+    border-radius: 6px;
+    background: rgba(10, 15, 29, 0.9) !important;
+    color: var(--white) !important;
+    text-align: left;
+    transition: border-color 0.18s, transform 0.18s, background 0.18s;
+}
+
+.character-option:hover {
+    transform: translateY(-3px) !important;
+    border-color: var(--character-accent) !important;
+    background: #18223a !important;
+}
+
+.character-option.is-selected {
+    border-color: var(--character-accent) !important;
+    background: linear-gradient(160deg, #202c47, #0b1120) !important;
+    box-shadow: inset 0 0 0 1px var(--character-accent), 0 0 18px color-mix(in srgb, var(--character-accent) 24%, transparent);
+}
+
+.character-art {
+    position: relative;
+    display: grid;
+    width: 100%;
+    height: 156px;
+    place-items: center;
+    overflow: hidden;
+    background: #111b31;
+}
+
+.character-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.asta-art {
+    background: radial-gradient(ellipse at 50% 70%, #39202e, #111626 74%);
+}
+
+.yuno-art {
+    background: radial-gradient(ellipse at 50% 70%, #183b55, #101b2c 74%);
+}
+
+.yami-art {
+    background: #14171c;
+}
+
+.yami-art img {
+    object-fit: cover;
+    object-position: 25% 17%;
+}
+
+.noelle-art {
+    background: radial-gradient(ellipse at 50% 72%, #3780a0, #12283b 76%);
+}
+
+.noelle-art::before {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    width: 76px;
+    height: 94px;
+    border-radius: 48% 48% 38% 38%;
+    background: linear-gradient(90deg, #a5d6e8, #e6f8ff 48%, #9acde0);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.35);
+    content: "";
+    transform: translateX(-50%);
+    clip-path: polygon(8% 0, 92% 0, 100% 72%, 78% 57%, 68% 100%, 50% 67%, 29% 100%, 22% 55%, 0 76%);
+}
+
+.noelle-art::after {
+    position: absolute;
+    bottom: -27px;
+    left: 50%;
+    width: 112px;
+    height: 95px;
+    border: 2px solid rgba(202, 244, 255, 0.7);
+    background: linear-gradient(120deg, #e9f7fa, #6bb6d2 55%, #2c6688);
+    content: "";
+    transform: translateX(-50%);
+    clip-path: polygon(28% 0, 72% 0, 100% 100%, 0 100%);
+}
+
+.noelle-art span {
+    z-index: 1;
+    display: grid;
+    width: 28px;
+    height: 28px;
+    margin-top: 37px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 50%;
+    background: #173a53;
+    color: #e4faff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+}
+
+.character-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 3px 3px;
+}
+
+.character-copy strong {
+    overflow: hidden;
+    color: var(--character-accent);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    text-overflow: ellipsis;
+}
+
+.character-copy small {
+    overflow: hidden;
+    color: #b7c3da;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.matchup-line {
+    margin: 14px 0 4px !important;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px !important;
+    letter-spacing: 1px;
+}
+
+.matchup-line span {
+    margin-left: 8px;
+    color: var(--white);
+}
+
+.result-panel {
+    width: min(440px, 100%);
+}
+
+.combo-display {
+    position: absolute;
+    left: 25px;
+    top: 25px;
+    color: #ffd44d;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    font-style: italic;
+    text-shadow: 3px 3px #8c142c, 0 0 18px rgba(255, 212, 77, 0.55);
+    pointer-events: none;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 20px;
+    margin-top: 16px;
+    background: var(--panel);
+    border: 1px solid #283552;
+}
+
+.controls h3 {
+    margin: 0 0 12px;
+    color: var(--blue);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.controls p {
+    color: #bdc6df;
+    font-size: 14px;
+    margin: 8px 0;
+}
+
+kbd {
+    display: inline-block;
+    min-width: 23px;
+    padding: 3px 6px;
+    margin-right: 3px;
+    text-align: center;
+    color: white;
+    background: #28334e;
+    border: 1px solid #475777;
+    border-radius: 3px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+}
+
+footer {
+    padding: 20px 0 5px;
+    color: #727e9e;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+footer span {
+    color: var(--red);
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .battle-hud {
+        grid-template-columns: 1fr 58px 1fr;
+        gap: 8px;
+        padding: 10px 7px;
+    }
+
+    .fighter-name strong {
+        font-size: 12px;
+    }
+
+    .timer span {
+        font-size: 22px;
+    }
+
+    .health-track {
+        height: 11px;
+    }
+
+    .controls {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .game-header {
+        align-items: flex-start;
+    }
+
+    .restart-button {
+        padding: 10px;
+        font-size: 9px;
+    }
+
+    .overlay {
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .selection-panel {
+        margin: auto 0;
+        padding: 16px 12px;
+    }
+
+    .character-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .character-option {
+        gap: 6px;
+        padding: 6px !important;
+    }
+
+    .character-art {
+        height: 100px;
+    }
+
+    .character-copy strong {
+        font-size: 11px;
+    }
+
+    .character-copy small {
+        font-size: 12px;
+    }
+}
